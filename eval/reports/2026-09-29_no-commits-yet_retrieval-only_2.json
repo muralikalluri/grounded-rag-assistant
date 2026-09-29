@@ -1,0 +1,355 @@
+{
+  "manifest": {
+    "run_id": "20260929T040133Z-3c1d04",
+    "started_at": "2026-09-29T04:01:52+00:00",
+    "mode": "retrieval_only",
+    "split": "all",
+    "git": {
+      "sha": "no-commits-yet",
+      "dirty": true
+    },
+    "dataset_sha256": "c5f8fb5052b5d35780df41bf707365ee2bab616190dba87ffbac37a312103a27",
+    "corpus_manifest_sha256": "cd81264b664d9b5c40b9e6124c0371326d40acc96afcf7d03d1643a75d5d6b78",
+    "prompt_sha256": {
+      "answer": "72891ba22d1253c8d40cf0a0391af312c22fd5f4ff3601004650fe3aad014569",
+      "user": "ef101884edf00c09fb92289a499460df3167a5d3eb7d0fdc6da56c9d4638a855",
+      "source_block": "59e3eadd496c0ae3daeedc91d606a70861d246b3c06afeb644590af9bd2204fe",
+      "judge_fact": "0d564a09b60f760e7f139e81667b33072f1310beb75fabe7174d6d7369d43345",
+      "judge_citation": "efd4abe2f0dcd851b104e225e9c897bedea090174a9095d09c892341a1136f4b"
+    },
+    "models_seen": [],
+    "judge": "disabled",
+    "config": {
+      "embedding_model": "BAAI/bge-small-en-v1.5",
+      "rerank_model": "BAAI/bge-reranker-base",
+      "abstain_rerank_threshold": 0.19,
+      "retrieval_vector_k": 30,
+      "retrieval_keyword_k": 30,
+      "rrf_k": 60,
+      "rerank_candidates": 30,
+      "rerank_top_n": 6,
+      "llm_provider": null,
+      "llm_model": null,
+      "temperature": null,
+      "quote_fuzzy_token_tolerance": 0,
+      "chunk_max_tokens": 480,
+      "chunk_overlap_ratio": 0.15,
+      "eval_concurrency": 2,
+      "eval_retries_per_question": 1
+    },
+    "environment": {
+      "python": "3.12.14",
+      "torch": "2.14.0",
+      "sentence-transformers": "6.1.0",
+      "transformers": "5.17.0",
+      "pymupdf": "1.28.2",
+      "litellm": "1.103.0",
+      "device": "mps"
+    },
+    "database": {
+      "documents": 100,
+      "chunks": 309,
+      "checksums_md5": "57891c7b86e2e5761e5fb47b6f57cf12"
+    }
+  },
+  "metrics": {
+    "n_questions": 30,
+    "n_errors": 0,
+    "recall_file": {
+      "k": 19,
+      "n": 20,
+      "rate": 0.95,
+      "wilson95": [
+        0.7638641064874331,
+        0.9911187805671268
+      ]
+    },
+    "recall_page": {
+      "k": 11,
+      "n": 12,
+      "rate": 0.9166666666666666,
+      "wilson95": [
+        0.6461140782014047,
+        0.9851352905492264
+      ]
+    },
+    "acl_leaked_chunks": 0,
+    "forbidden_source_hits": 0,
+    "chunks_checked_for_acl": 180,
+    "rerank_unavailable_questions": 0,
+    "stage1_preview": {
+      "holdout": {
+        "answerable": {
+          "k": 0,
+          "n": 10
+        },
+        "unanswerable": {
+          "k": 1,
+          "n": 3
+        },
+        "acl_denied": {
+          "k": 1,
+          "n": 2
+        }
+      },
+      "dev": {
+        "answerable": {
+          "k": 0,
+          "n": 10
+        },
+        "unanswerable": {
+          "k": 3,
+          "n": 3
+        },
+        "acl_denied": {
+          "k": 2,
+          "n": 2
+        }
+      }
+    }
+  },
+  "incomplete": false,
+  "incomplete_reason": null,
+  "per_question": [
+    {
+      "id": "q001",
+      "as_user": "alice",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit / page hit",
+      "notes": ""
+    },
+    {
+      "id": "q002",
+      "as_user": "bob",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit / page hit",
+      "notes": ""
+    },
+    {
+      "id": "q003",
+      "as_user": "alice",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit / page hit",
+      "notes": ""
+    },
+    {
+      "id": "q004",
+      "as_user": "alice",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit / page hit",
+      "notes": ""
+    },
+    {
+      "id": "q005",
+      "as_user": "bob",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit / page hit",
+      "notes": ""
+    },
+    {
+      "id": "q006",
+      "as_user": "alice",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit / page hit",
+      "notes": ""
+    },
+    {
+      "id": "q007",
+      "as_user": "bob",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit / page hit",
+      "notes": ""
+    },
+    {
+      "id": "q008",
+      "as_user": "alice",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit / page hit",
+      "notes": ""
+    },
+    {
+      "id": "q009",
+      "as_user": "bob",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit",
+      "notes": ""
+    },
+    {
+      "id": "q010",
+      "as_user": "alice",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "MISS / page MISS",
+      "notes": ""
+    },
+    {
+      "id": "q011",
+      "as_user": "bob",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit",
+      "notes": ""
+    },
+    {
+      "id": "q012",
+      "as_user": "alice",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit / page hit",
+      "notes": ""
+    },
+    {
+      "id": "q013",
+      "as_user": "bob",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit",
+      "notes": ""
+    },
+    {
+      "id": "q014",
+      "as_user": "alice",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit",
+      "notes": ""
+    },
+    {
+      "id": "q015",
+      "as_user": "bob",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit",
+      "notes": ""
+    },
+    {
+      "id": "q016",
+      "as_user": "alice",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit",
+      "notes": ""
+    },
+    {
+      "id": "q017",
+      "as_user": "alice",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit / page hit",
+      "notes": ""
+    },
+    {
+      "id": "q018",
+      "as_user": "alice",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit",
+      "notes": ""
+    },
+    {
+      "id": "q019",
+      "as_user": "bob",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit",
+      "notes": ""
+    },
+    {
+      "id": "q020",
+      "as_user": "bob",
+      "category": "answerable",
+      "outcome": "retrieval_only",
+      "recall_file": "hit / page hit",
+      "notes": ""
+    },
+    {
+      "id": "q021",
+      "as_user": "alice",
+      "category": "unanswerable",
+      "outcome": "retrieval_only",
+      "recall_file": "n/a",
+      "notes": ""
+    },
+    {
+      "id": "q022",
+      "as_user": "alice",
+      "category": "unanswerable",
+      "outcome": "retrieval_only",
+      "recall_file": "n/a",
+      "notes": ""
+    },
+    {
+      "id": "q023",
+      "as_user": "alice",
+      "category": "unanswerable",
+      "outcome": "retrieval_only",
+      "recall_file": "n/a",
+      "notes": ""
+    },
+    {
+      "id": "q024",
+      "as_user": "bob",
+      "category": "unanswerable",
+      "outcome": "retrieval_only",
+      "recall_file": "n/a",
+      "notes": ""
+    },
+    {
+      "id": "q025",
+      "as_user": "bob",
+      "category": "unanswerable",
+      "outcome": "retrieval_only",
+      "recall_file": "n/a",
+      "notes": ""
+    },
+    {
+      "id": "q026",
+      "as_user": "alice",
+      "category": "unanswerable",
+      "outcome": "retrieval_only",
+      "recall_file": "n/a",
+      "notes": ""
+    },
+    {
+      "id": "q027",
+      "as_user": "bob",
+      "category": "acl_denied",
+      "outcome": "retrieval_only",
+      "recall_file": "n/a",
+      "notes": ""
+    },
+    {
+      "id": "q028",
+      "as_user": "bob",
+      "category": "acl_denied",
+      "outcome": "retrieval_only",
+      "recall_file": "n/a",
+      "notes": ""
+    },
+    {
+      "id": "q029",
+      "as_user": "bob",
+      "category": "acl_denied",
+      "outcome": "retrieval_only",
+      "recall_file": "n/a",
+      "notes": ""
+    },
+    {
+      "id": "q030",
+      "as_user": "alice",
+      "category": "acl_denied",
+      "outcome": "retrieval_only",
+      "recall_file": "n/a",
+      "notes": ""
+    }
+  ]
+}

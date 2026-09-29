@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-09-29T06:18:30+00:00",
+  "mode": "worker",
+  "embedding_model": "BAAI/bge-small-en-v1.5",
+  "documents_in_manifest": 100,
+  "actions": {
+    "created": 0,
+    "updated": 0,
+    "skipped": 100,
+    "failed": 0
+  },
+  "documents_by_status": {
+    "needs_ocr": 2,
+    "ready": 98
+  },
+  "chunks_total": 309,
+  "seconds": 26.22
+}

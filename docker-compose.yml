@@ -1,0 +1,130 @@
+services:
+  postgres:
+    image: pgvector/pgvector:0.8.1-pg16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-rag}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-rag}
+      POSTGRES_DB: ${POSTGRES_DB:-rag}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./infra/local/postgres-init.sql:/docker-entrypoint-initdb.d/00-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-rag} -d ${POSTGRES_DB:-rag}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "127.0.0.1:6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  migrate:
+    build: ./backend
+    command: ["alembic", "upgrade", "head"]
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-rag}:${POSTGRES_PASSWORD:-rag}@postgres:5432/${POSTGRES_DB:-rag}
+    depends_on:
+      postgres: { condition: service_healthy }
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.4
+    # DEV MODE with an imported demo realm: local compose only. Production uses `start` with TLS,
+    # a real database and a secret store, and never this realm export (see infra/keycloak/README.md).
+    command: ["start-dev", "--import-realm"]
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN_USER:-kcadmin}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-change-me-kc-admin}
+      # Tokens carry iss=http://localhost:8080/realms/northwind wherever they are minted, while
+      # containers reach Keycloak as http://keycloak:8080 (backchannel).
+      KC_HOSTNAME: http://localhost:8080
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
+      KC_HTTP_ENABLED: "true"
+      KC_HEALTH_ENABLED: "true"
+      RAG_WEB_CLIENT_SECRET: ${RAG_WEB_CLIENT_SECRET:-change-me-local-client-secret}
+    volumes:
+      - ./infra/keycloak/realm-northwind.json:/opt/keycloak/data/import/realm-northwind.json:ro
+    ports:
+      - "127.0.0.1:8080:8080"
+    healthcheck:
+      # Management port 9000 serves /health/ready; the image has no curl, so use bash /dev/tcp.
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/9000 && printf 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && grep -q '\"status\": \"UP\"' <&3"]
+      interval: 5s
+      timeout: 5s
+      retries: 40
+
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-rag}:${POSTGRES_PASSWORD:-rag}@postgres:5432/${POSTGRES_DB:-rag}
+      REDIS_URL: redis://redis:6379/0
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      STORAGE_DIR: /data/files
+      DEMO_CORPUS_DIR: /demo-corpus
+      RESULTS_DIR: /results
+      APP_ENV: ${APP_ENV:-dev}
+      DEV_AUTH_ENABLED: "false"
+      OIDC_ISSUER: http://localhost:8080/realms/northwind
+      OIDC_JWKS_URL: http://keycloak:8080/realms/northwind/protocol/openid-connect/certs
+      LLM_PROVIDER: ${LLM_PROVIDER:-anthropic}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - data:/data
+      - hf-cache:/hf-cache
+      - ./demo-corpus:/demo-corpus:ro
+      - ./results:/results
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+      keycloak: { condition: service_healthy }
+
+  worker:
+    build: ./backend
+    command: ["arq", "app.worker.WorkerSettings"]
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-rag}:${POSTGRES_PASSWORD:-rag}@postgres:5432/${POSTGRES_DB:-rag}
+      REDIS_URL: redis://redis:6379/0
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      STORAGE_DIR: /data/files
+      DEMO_CORPUS_DIR: /demo-corpus
+      RESULTS_DIR: /results
+    volumes:
+      - data:/data
+      - hf-cache:/hf-cache
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+
+  web:
+    build: ./frontend
+    environment:
+      API_URL: http://api:8000
+      APP_ORIGIN: http://localhost:3000
+      # Browsers are sent to the public issuer; the server talks to Keycloak on the compose network.
+      OIDC_ISSUER: http://localhost:8080/realms/northwind
+      OIDC_INTERNAL_URL: http://keycloak:8080/realms/northwind
+      OIDC_CLIENT_ID: rag-web
+      OIDC_CLIENT_SECRET: ${RAG_WEB_CLIENT_SECRET:-change-me-local-client-secret}
+      SESSION_SECRET: ${SESSION_SECRET:-change-me-local-session-secret-32-chars-min}
+      REDIS_URL: redis://redis:6379/1
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      api: { condition: service_started }
+      redis: { condition: service_healthy }
+      keycloak: { condition: service_healthy }
+
+volumes:
+  pgdata:
+  data:
+  hf-cache:

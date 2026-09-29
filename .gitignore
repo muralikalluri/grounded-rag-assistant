@@ -1,0 +1,34 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.next/
+target/
+build/
+dist/
+__pycache__/
+.venv/
+*.pyc
+.idea/
+.vscode/
+.DS_Store
+terraform.tfstate*
+.terraform/
+results/**/raw/
+PROMPTS.md
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# local data
+data/
+.hypothesis/
+results/eval/test-mode/
+
+# Terraform: state and real variable files can contain secrets. The lock file IS committed.
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+.terraform/
+crash.log

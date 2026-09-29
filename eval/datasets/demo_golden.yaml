@@ -1,0 +1,244 @@
+# Golden set for the fictional "Northwind Logistics" demo corpus (see demo-corpus/manifest.json).
+#
+# category:  answerable | unanswerable | acl_denied
+# as_user:   alice = HR group, bob = Engineering group (see docs / dev principals)
+# expected_facts:    every string must appear in a correct answer (normalised substring match)
+# expected_sources:  file names, optionally "#pN" (PDF page) - retrieval recall@6 checks these
+# forbidden_sources: (acl_denied) documents that must NEVER be retrieved for that user
+# stale_facts:       older values from superseded documents; reported, not scored
+# split:     dev = may be used to tune thresholds; holdout = report only (never tune on it)
+#
+# tests/test_eval_dataset.py checks every expected fact really occurs in its expected source.
+
+# ------------------------------------------------------------------ answerable (20)
+- id: q001
+  question: How many days of annual leave can be carried forward?
+  category: answerable
+  as_user: alice
+  expected_facts: ["10 days"]
+  expected_sources: ["hr-leave-policy.pdf#p4"]
+  split: dev
+- id: q002
+  question: How many working days of paid annual leave does a full-time employee get each year?
+  category: answerable
+  as_user: bob
+  expected_facts: ["24 working days"]
+  expected_sources: ["hr-leave-policy.pdf#p3"]
+  split: holdout
+- id: q003
+  question: How many days off with pay am I allowed when I am ill during the year?
+  category: answerable
+  as_user: alice
+  expected_facts: ["12 paid sick days"]
+  expected_sources: ["hr-leave-policy.pdf#p5"]
+  tags: [paraphrase]
+  split: dev
+- id: q004
+  question: How long is parental leave for the primary carer?
+  category: answerable
+  as_user: alice
+  expected_facts: ["16 weeks"]
+  expected_sources: ["hr-leave-policy.pdf#p6"]
+  split: holdout
+- id: q005
+  question: What is the minimum length of a password at the company?
+  category: answerable
+  as_user: bob
+  expected_facts: ["14 characters"]
+  expected_sources: ["it-security-policy.pdf#p1"]
+  split: dev
+- id: q006
+  question: What is the daily meal allowance during business travel?
+  category: answerable
+  as_user: alice
+  expected_facts: ["55 euros"]
+  expected_sources: ["expense-policy-v2.pdf#p1"]
+  stale_facts: ["40 euros"]   # version 1 (2023) value; version 2 (2025-06-01) is current
+  tags: [versioned]
+  split: holdout
+- id: q007
+  question: Up to what amount can a team lead approve an expense claim?
+  category: answerable
+  as_user: bob
+  expected_facts: ["750 euros"]
+  expected_sources: ["expense-policy-v2.pdf#p1"]
+  stale_facts: ["500 euros"]
+  tags: [versioned]
+  split: dev
+- id: q008
+  question: How many days per week may office-based employees work from home?
+  category: answerable
+  as_user: alice
+  expected_facts: ["3 days"]
+  expected_sources: ["remote-work-policy.pdf#p1"]
+  split: holdout
+- id: q009
+  question: What is the maximum value of a gift an employee may accept from a supplier?
+  category: answerable
+  as_user: bob
+  expected_facts: ["50 euros"]
+  expected_sources: ["code-of-conduct.docx"]
+  split: dev
+- id: q010
+  question: How long do we hold on to consignment paperwork before it is deleted?
+  category: answerable
+  as_user: alice
+  expected_facts: ["7 years"]
+  expected_sources: ["data-retention-policy.pdf#p1"]
+  tags: [paraphrase]
+  split: holdout
+- id: q011
+  question: Within how many minutes must the on-call engineer acknowledge a Severity 1 incident?
+  category: answerable
+  as_user: bob
+  expected_facts: ["10 minutes", "Severity 1"]
+  expected_sources: ["incident-response-sop.docx"]
+  split: dev
+- id: q012
+  question: How many loading dock doors does the Redhaven depot have?
+  category: answerable
+  as_user: alice
+  expected_facts: ["15 loading dock doors"]
+  expected_sources: ["depot-handbook-redhaven.pdf#p1"]
+  tags: [near-duplicate]
+  split: holdout
+- id: q013
+  question: Who manages the Northmere depot?
+  category: answerable
+  as_user: bob
+  expected_facts: ["Dmitri Brightwater"]
+  expected_sources: ["depot-handbook-northmere.md"]
+  tags: [near-duplicate]
+  split: dev
+- id: q014
+  question: How many trailers can be parked at the Ferncliff depot?
+  category: answerable
+  as_user: alice
+  expected_facts: ["72 trailers"]
+  expected_sources: ["depot-handbook-ferncliff.docx"]
+  tags: [near-duplicate]
+  split: holdout
+- id: q015
+  question: How many trailers can the Eastfold depot park?
+  category: answerable
+  as_user: bob
+  expected_facts: ["24 trailers"]
+  expected_sources: ["depot-handbook-eastfold.html"]
+  tags: [near-duplicate]
+  split: dev
+- id: q016
+  question: How often must the NL-ChillTruck be serviced, in kilometres?
+  category: answerable
+  as_user: alice
+  expected_facts: ["20000 km"]
+  expected_sources: ["manual-nl-chilltruck.docx"]
+  tags: [near-duplicate]
+  split: holdout
+- id: q017
+  question: What is the salary band for L5 engineers?
+  category: answerable
+  as_user: alice
+  expected_facts: ["80,000", "102,000"]
+  expected_sources: ["salary-bands.pdf#p1"]
+  tags: [hr-only]
+  split: dev
+- id: q018
+  question: What does it cost to deliver a pallet within the region?
+  category: answerable
+  as_user: alice
+  expected_facts: ["62 euros"]
+  expected_sources: ["shipping-rates-summary.md"]
+  split: holdout
+- id: q019
+  question: On which day of the week are production deployments frozen?
+  category: answerable
+  as_user: bob
+  expected_facts: ["Friday"]
+  expected_sources: ["deployment-runbook.docx"]
+  tags: [engineering-only]
+  split: dev
+- id: q020
+  question: How much is the weekly on-call allowance for engineers?
+  category: answerable
+  as_user: bob
+  expected_facts: ["350 euros"]
+  expected_sources: ["on-call-handbook.pdf#p1"]
+  tags: [engineering-only]
+  split: holdout
+
+# --------------------------------------------- unanswerable (6): the topic exists, the detail does not
+- id: q021
+  question: What is the company policy on working remotely from abroad?
+  category: unanswerable
+  as_user: alice
+  note: remote-work-policy.pdf covers home working only
+  absent_terms: ["abroad"]   # must occur nowhere in the corpus
+  split: dev
+- id: q022
+  question: How many days of bereavement leave are employees entitled to?
+  category: unanswerable
+  as_user: alice
+  note: the leave policy has annual, sick and parental leave only
+  absent_terms: ["bereave"]   # must occur nowhere in the corpus
+  split: holdout
+- id: q023
+  question: What is the mileage reimbursement rate per kilometre for business trips?
+  category: unanswerable
+  as_user: alice
+  note: the expense and travel policies do not set a mileage rate
+  absent_terms: ["mileage"]   # must occur nowhere in the corpus
+  split: dev
+- id: q024
+  question: How many loading dock doors does the Atlantis depot have?
+  category: unanswerable
+  as_user: bob
+  note: there is no Atlantis depot (20 other depots exist)
+  tags: [near-duplicate]
+  absent_terms: ["atlantis"]   # must occur nowhere in the corpus
+  split: holdout
+- id: q025
+  question: Which version of Kubernetes runs in the production cluster?
+  category: unanswerable
+  as_user: bob
+  note: the architecture overview lists services and data stores, not versions
+  absent_terms: ["kubernetes"]   # must occur nowhere in the corpus
+  split: dev
+- id: q026
+  question: What is the company dress code for depot visitors?
+  category: unanswerable
+  as_user: alice
+  note: nothing about dress code exists; visitor sign-in SOP is about registration only
+  absent_terms: ["dress code"]   # must occur nowhere in the corpus
+  split: holdout
+
+# ------------------------------------------------------ acl_denied (4): exists, but not for this user
+- id: q027
+  question: What is the salary band for L5 engineers?
+  category: acl_denied
+  as_user: bob
+  forbidden_sources: ["salary-bands.pdf", "compensation-policy.docx"]
+  note: same question as q017, which alice can answer
+  denied_facts: ["102,000"]   # occur only in documents this user cannot read
+  split: dev
+- id: q028
+  question: How long is a performance improvement plan for an employee rated in the lowest category?
+  category: acl_denied
+  as_user: bob
+  forbidden_sources: ["performance-review-process.docx"]
+  denied_facts: ["60-day"]   # occur only in documents this user cannot read
+  split: holdout
+- id: q029
+  question: What is the annual bonus target as a percentage of base salary for managers?
+  category: acl_denied
+  as_user: bob
+  forbidden_sources: ["compensation-policy.docx"]
+  denied_facts: ["15 percent"]   # occur only in documents this user cannot read
+  split: dev
+- id: q030
+  question: How much is the weekly on-call allowance for engineers?
+  category: acl_denied
+  as_user: alice
+  forbidden_sources: ["on-call-handbook.pdf"]
+  note: same question as q020, which bob can answer (engineering-only document)
+  denied_facts: ["350 euros"]   # occur only in documents this user cannot read
+  split: holdout

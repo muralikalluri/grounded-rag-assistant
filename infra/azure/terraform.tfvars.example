@@ -1,0 +1,26 @@
+# Copy to terraform.tfvars (git-ignored) and fill in. NEVER commit real values.
+# Export ARM_SUBSCRIPTION_ID (or set subscription_id) and log in with `az login`.
+
+# subscription_id = "00000000-0000-0000-0000-000000000000"
+location = "westeurope"
+
+# Images you built and pushed yourself (image publishing is not automated yet).
+api_image    = "registry.example.com/rag-backend:0.1.0"
+worker_image = "registry.example.com/rag-backend:0.1.0"
+web_image    = "registry.example.com/rag-web:0.1.0"
+
+# Private registry (leave empty for public images):
+# registry_server   = "registry.example.com"
+# registry_username = "pull-token"
+# registry_password = "..."   # better: export TF_VAR_registry_password
+
+# YOUR Keycloak realm, reachable from the internet (Entra ID is not supported yet: see README).
+oidc_issuer   = "https://sso.example.com/realms/northwind"
+oidc_jwks_url = "https://sso.example.com/realms/northwind/protocol/openid-connect/certs"
+# Secrets: export TF_VAR_oidc_client_secret and TF_VAR_llm_api_key instead of writing them here.
+
+llm_provider = "anthropic"
+llm_model    = "claude-opus-5-5"
+
+# Recommended: only your own IP may reach the Key Vault data plane (RBAC still applies).
+# key_vault_allowed_ips = ["203.0.113.7"]

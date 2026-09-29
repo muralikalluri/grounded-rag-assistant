@@ -1,0 +1,529 @@
+{
+  "company": "Northwind Logistics (fictional)",
+  "collections": [
+    {
+      "name": "company",
+      "description": "Company-wide policies, procedures, depot handbooks and manuals.",
+      "acl_groups": [
+        "HR",
+        "Engineering"
+      ]
+    },
+    {
+      "name": "hr",
+      "description": "HR-only material: compensation, discipline, recruitment.",
+      "acl_groups": [
+        "HR"
+      ]
+    },
+    {
+      "name": "engineering",
+      "description": "Engineering runbooks, standards and architecture.",
+      "acl_groups": [
+        "Engineering"
+      ]
+    }
+  ],
+  "documents": [
+    {
+      "path": "files/company/code-of-conduct.docx",
+      "collection": "company",
+      "modified_at": "2024-05-05"
+    },
+    {
+      "path": "files/company/company-faq.md",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/data-retention-policy.pdf",
+      "collection": "company",
+      "modified_at": "2024-07-15"
+    },
+    {
+      "path": "files/company/depot-handbook-ashcombe.md",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-brackwater.pdf",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-copperfield.md",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-dovedale.md",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-eastfold.html",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-ferncliff.docx",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-harrowgate.docx",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-highgate-vale.docx",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-kingsreach.pdf",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-lakeside-cross.html",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-marlow-bay.pdf",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-northmere.md",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-oakhurst.html",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-redhaven.pdf",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-saltmarsh.html",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-silverton.md",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-stonebridge.docx",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-thornbury.docx",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-willowdene.html",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/depot-handbook-windmere.pdf",
+      "collection": "company",
+      "modified_at": "2025-02-01"
+    },
+    {
+      "path": "files/company/equipment-barcode-gate-bg-7.html",
+      "collection": "company",
+      "modified_at": "2024-06-01"
+    },
+    {
+      "path": "files/company/equipment-conveyor-cv-12.html",
+      "collection": "company",
+      "modified_at": "2024-06-01"
+    },
+    {
+      "path": "files/company/equipment-dock-leveller-dl-9.html",
+      "collection": "company",
+      "modified_at": "2024-06-01"
+    },
+    {
+      "path": "files/company/equipment-forklift-charger-fc-22.html",
+      "collection": "company",
+      "modified_at": "2024-06-01"
+    },
+    {
+      "path": "files/company/equipment-handheld-scanner-hs-40.html",
+      "collection": "company",
+      "modified_at": "2024-06-01"
+    },
+    {
+      "path": "files/company/equipment-label-printer-lp-200.html",
+      "collection": "company",
+      "modified_at": "2024-06-01"
+    },
+    {
+      "path": "files/company/equipment-pallet-wrapper-pw-3.html",
+      "collection": "company",
+      "modified_at": "2024-06-01"
+    },
+    {
+      "path": "files/company/equipment-parcel-sorter-ps-8.html",
+      "collection": "company",
+      "modified_at": "2024-06-01"
+    },
+    {
+      "path": "files/company/equipment-rack-system-rs-4.html",
+      "collection": "company",
+      "modified_at": "2024-06-01"
+    },
+    {
+      "path": "files/company/equipment-safety-light-curtain-sl-5.html",
+      "collection": "company",
+      "modified_at": "2024-06-01"
+    },
+    {
+      "path": "files/company/equipment-temperature-logger-tl-1.html",
+      "collection": "company",
+      "modified_at": "2024-06-01"
+    },
+    {
+      "path": "files/company/equipment-weighbridge-wb-50.html",
+      "collection": "company",
+      "modified_at": "2024-06-01"
+    },
+    {
+      "path": "files/company/expense-policy-v1.pdf",
+      "collection": "company",
+      "modified_at": "2023-01-15"
+    },
+    {
+      "path": "files/company/expense-policy-v2.pdf",
+      "collection": "company",
+      "modified_at": "2025-06-01"
+    },
+    {
+      "path": "files/company/hr-leave-policy.pdf",
+      "collection": "company",
+      "modified_at": "2025-03-01"
+    },
+    {
+      "path": "files/company/incident-response-sop.docx",
+      "collection": "company",
+      "modified_at": "2025-04-02"
+    },
+    {
+      "path": "files/company/it-security-policy.pdf",
+      "collection": "company",
+      "modified_at": "2025-02-10"
+    },
+    {
+      "path": "files/company/manual-nl-cargo-bike.pdf",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/manual-nl-chilltruck.docx",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/manual-nl-chillvan.pdf",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/manual-nl-courier-l.pdf",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/manual-nl-courier-m.docx",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/manual-nl-courier-s.pdf",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/manual-nl-forklift-e2.pdf",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/manual-nl-forklift-e4.docx",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/manual-nl-hauler-12.docx",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/manual-nl-hauler-18.pdf",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/manual-nl-hauler-26.docx",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/manual-nl-mini-van.docx",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/manual-nl-pallet-jack.pdf",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/manual-nl-tipper-8.pdf",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/manual-nl-yard-tug.docx",
+      "collection": "company",
+      "modified_at": "2024-10-15"
+    },
+    {
+      "path": "files/company/onboarding-guide.docx",
+      "collection": "company",
+      "modified_at": "2025-01-08"
+    },
+    {
+      "path": "files/company/public-holidays-2025.html",
+      "collection": "company",
+      "modified_at": "2025-01-02"
+    },
+    {
+      "path": "files/company/remote-work-policy.pdf",
+      "collection": "company",
+      "modified_at": "2024-09-01"
+    },
+    {
+      "path": "files/company/scanned-damage-report-207.pdf",
+      "collection": "company",
+      "modified_at": "2025-01-20"
+    },
+    {
+      "path": "files/company/scanned-delivery-note-1041.pdf",
+      "collection": "company",
+      "modified_at": "2025-01-20"
+    },
+    {
+      "path": "files/company/shipping-rates-summary.md",
+      "collection": "company",
+      "modified_at": "2025-01-10"
+    },
+    {
+      "path": "files/company/sop-cold-chain-monitoring.docx",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-customs-paperwork.pdf",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-cycle-counting.docx",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-damaged-parcel-handling.docx",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-driver-handover.docx",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-fire-evacuation-drill.docx",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-forklift-pre-use-check.docx",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-hazardous-goods-screening.pdf",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-inbound-goods-receipt.pdf",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-lost-parcel-investigation.docx",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-missed-delivery-follow-up.docx",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-night-shift-start-up.pdf",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-outbound-loading.docx",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-overweight-load-handling.docx",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-pallet-labelling.docx",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-peak-season-staffing.docx",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-proof-of-delivery.docx",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-returns-processing.pdf",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-spill-response.docx",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-trailer-sealing.pdf",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/sop-visitor-sign-in.pdf",
+      "collection": "company",
+      "modified_at": "2024-08-01"
+    },
+    {
+      "path": "files/company/travel-policy.docx",
+      "collection": "company",
+      "modified_at": "2024-11-20"
+    },
+    {
+      "path": "files/company/whistleblower-policy.txt",
+      "collection": "company",
+      "modified_at": "2024-03-10"
+    },
+    {
+      "path": "files/engineering/api-guidelines.md",
+      "collection": "engineering",
+      "modified_at": "2024-12-10"
+    },
+    {
+      "path": "files/engineering/architecture-overview.html",
+      "collection": "engineering",
+      "modified_at": "2025-03-01"
+    },
+    {
+      "path": "files/engineering/coding-standards.md",
+      "collection": "engineering",
+      "modified_at": "2025-03-15"
+    },
+    {
+      "path": "files/engineering/database-operations.pdf",
+      "collection": "engineering",
+      "modified_at": "2025-03-20"
+    },
+    {
+      "path": "files/engineering/deployment-runbook.docx",
+      "collection": "engineering",
+      "modified_at": "2025-02-25"
+    },
+    {
+      "path": "files/engineering/on-call-handbook.pdf",
+      "collection": "engineering",
+      "modified_at": "2025-01-30"
+    },
+    {
+      "path": "files/engineering/postmortem-template.md",
+      "collection": "engineering",
+      "modified_at": "2024-09-30"
+    },
+    {
+      "path": "files/engineering/secrets-management.docx",
+      "collection": "engineering",
+      "modified_at": "2025-02-14"
+    },
+    {
+      "path": "files/hr/benefits-guide.docx",
+      "collection": "hr",
+      "modified_at": "2025-01-05"
+    },
+    {
+      "path": "files/hr/compensation-policy.docx",
+      "collection": "hr",
+      "modified_at": "2025-01-20"
+    },
+    {
+      "path": "files/hr/disciplinary-procedure.pdf",
+      "collection": "hr",
+      "modified_at": "2024-06-12"
+    },
+    {
+      "path": "files/hr/grievance-policy.md",
+      "collection": "hr",
+      "modified_at": "2024-04-22"
+    },
+    {
+      "path": "files/hr/performance-review-process.docx",
+      "collection": "hr",
+      "modified_at": "2024-10-01"
+    },
+    {
+      "path": "files/hr/recruitment-sop.docx",
+      "collection": "hr",
+      "modified_at": "2024-12-03"
+    },
+    {
+      "path": "files/hr/salary-bands.pdf",
+      "collection": "hr",
+      "modified_at": "2025-01-15"
+    },
+    {
+      "path": "files/hr/termination-and-offboarding.pdf",
+      "collection": "hr",
+      "modified_at": "2024-08-19"
+    }
+  ]
+}

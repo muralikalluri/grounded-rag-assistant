@@ -1,0 +1,146 @@
+{
+  "generated_at": "2026-09-28T20:53:09+00:00",
+  "embedding_model": "BAAI/bge-small-en-v1.5",
+  "rerank_model": "BAAI/bge-reranker-base",
+  "queries": 9,
+  "expected_in_top_n": 7,
+  "expected_total": 7,
+  "forbidden_returned_total": 0,
+  "results": [
+    {
+      "query": "How many days of annual leave can be carried forward?",
+      "as": "alice",
+      "expect": "hr-leave-policy.pdf",
+      "rank_of_expected": 2,
+      "page_ok": true,
+      "forbidden_returned": [],
+      "top_rerank_prob": 0.9993838264465956,
+      "returned": 6,
+      "timings_ms": {
+        "embed_query": 59.8,
+        "sql": 11.6,
+        "rerank": 813.5
+      }
+    },
+    {
+      "query": "How many days of annual leave can be carried forward?",
+      "as": "bob",
+      "expect": "hr-leave-policy.pdf",
+      "rank_of_expected": 1,
+      "page_ok": true,
+      "forbidden_returned": [],
+      "top_rerank_prob": 0.999292015676282,
+      "returned": 6,
+      "timings_ms": {
+        "embed_query": 16.4,
+        "sql": 2.7,
+        "rerank": 694.9
+      }
+    },
+    {
+      "query": "What is the minimum password length?",
+      "as": "bob",
+      "expect": "it-security-policy.pdf",
+      "rank_of_expected": 1,
+      "page_ok": null,
+      "forbidden_returned": [],
+      "top_rerank_prob": 0.9954894387176373,
+      "returned": 6,
+      "timings_ms": {
+        "embed_query": 8.0,
+        "sql": 2.1,
+        "rerank": 648.2
+      }
+    },
+    {
+      "query": "What is the salary band for L5 engineers?",
+      "as": "alice",
+      "expect": "salary-bands.pdf",
+      "rank_of_expected": 1,
+      "page_ok": null,
+      "forbidden_returned": [],
+      "top_rerank_prob": 0.6752226198300889,
+      "returned": 6,
+      "timings_ms": {
+        "embed_query": 22.3,
+        "sql": 2.5,
+        "rerank": 691.2
+      }
+    },
+    {
+      "query": "What is the salary band for L5 engineers?",
+      "as": "bob",
+      "expect": null,
+      "rank_of_expected": null,
+      "page_ok": null,
+      "forbidden_returned": [],
+      "top_rerank_prob": 0.16324699259155603,
+      "returned": 6,
+      "timings_ms": {
+        "embed_query": 8.0,
+        "sql": 2.1,
+        "rerank": 706.3
+      }
+    },
+    {
+      "query": "When are production deployments not allowed?",
+      "as": "bob",
+      "expect": "deployment-runbook.docx",
+      "rank_of_expected": 1,
+      "page_ok": null,
+      "forbidden_returned": [],
+      "top_rerank_prob": 0.20608836274564318,
+      "returned": 6,
+      "timings_ms": {
+        "embed_query": 9.2,
+        "sql": 3.1,
+        "rerank": 589.4
+      }
+    },
+    {
+      "query": "When are production deployments not allowed?",
+      "as": "alice",
+      "expect": null,
+      "rank_of_expected": null,
+      "page_ok": null,
+      "forbidden_returned": [],
+      "top_rerank_prob": 0.029964647872434375,
+      "returned": 6,
+      "timings_ms": {
+        "embed_query": 7.7,
+        "sql": 5.1,
+        "rerank": 661.7
+      }
+    },
+    {
+      "query": "What is the daily meal allowance during business travel?",
+      "as": "alice",
+      "expect": "expense-policy-v2.pdf",
+      "rank_of_expected": 2,
+      "page_ok": null,
+      "forbidden_returned": [],
+      "top_rerank_prob": 0.9991205438042186,
+      "returned": 6,
+      "timings_ms": {
+        "embed_query": 12.8,
+        "sql": 3.1,
+        "rerank": 721.2
+      }
+    },
+    {
+      "query": "How many loading dock doors does the Redhaven depot have?",
+      "as": "bob",
+      "expect": "depot-handbook-redhaven.pdf",
+      "rank_of_expected": 1,
+      "page_ok": null,
+      "forbidden_returned": [],
+      "top_rerank_prob": 0.9994941077036893,
+      "returned": 6,
+      "timings_ms": {
+        "embed_query": 8.5,
+        "sql": 2.9,
+        "rerank": 754.1
+      }
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "realm": "northwind",
+  "displayName": "Northwind Logistics (fictional demo)",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "resetPasswordAllowed": false,
+  "rememberMe": false,
+  "bruteForceProtected": true,
+  "failureFactor": 5,
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 28800,
+  "revokeRefreshToken": true,
+  "refreshTokenMaxReuse": 0,
+  "roles": {
+    "realm": [
+      {
+        "name": "user",
+        "description": "Can ask questions"
+      },
+      {
+        "name": "admin",
+        "description": "Operational role. Grants NO document access by itself."
+      }
+    ]
+  },
+  "groups": [
+    {
+      "name": "HR"
+    },
+    {
+      "name": "Engineering"
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "rag-web",
+      "name": "Grounded RAG web app",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "${RAG_WEB_CLIENT_SECRET}",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "rootUrl": "http://localhost:3000",
+      "redirectUris": [
+        "http://localhost:3000/auth/callback"
+      ],
+      "webOrigins": [
+        "http://localhost:3000"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:3000/",
+        "access.token.lifespan": "300"
+      },
+      "defaultClientScopes": [
+        "web-origins",
+        "profile",
+        "roles",
+        "email",
+        "basic"
+      ],
+      "protocolMappers": [
+        {
+          "name": "groups",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-group-membership-mapper",
+          "consentRequired": false,
+          "config": {
+            "claim.name": "groups",
+            "full.path": "false",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "false"
+          }
+        },
+        {
+          "name": "rag-api-audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.custom.audience": "rag-api",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "alice",
+      "enabled": true,
+      "emailVerified": true,
+      "email": "alice@northwind.example",
+      "firstName": "Alice",
+      "lastName": "Andersson",
+      "groups": [
+        "/HR"
+      ],
+      "realmRoles": [
+        "user"
+      ],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "alice-demo-only",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "bob",
+      "enabled": true,
+      "emailVerified": true,
+      "email": "bob@northwind.example",
+      "firstName": "Bob",
+      "lastName": "Brandt",
+      "groups": [
+        "/Engineering"
+      ],
+      "realmRoles": [
+        "user"
+      ],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "bob-demo-only",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "admin",
+      "enabled": true,
+      "emailVerified": true,
+      "email": "admin@northwind.example",
+      "firstName": "Ada",
+      "lastName": "Admin",
+      "groups": [],
+      "realmRoles": [
+        "user",
+        "admin"
+      ],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin-demo-only",
+          "temporary": false
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "demo-warning": "LOCAL COMPOSE DEMO ONLY. Fictional users with throwaway passwords ('<name>-demo-only'). Never import this into a real environment. The client secret is injected from RAG_WEB_CLIENT_SECRET at import time and is not stored in this file."
+  }
+}

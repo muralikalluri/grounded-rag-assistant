@@ -1,0 +1,20 @@
+[
+  {"query": "How many days of annual leave can be carried forward?", "as": "alice",
+   "expect": "hr-leave-policy.pdf", "page": 4},
+  {"query": "How many days of annual leave can be carried forward?", "as": "bob",
+   "expect": "hr-leave-policy.pdf", "page": 4},
+  {"query": "What is the minimum password length?", "as": "bob",
+   "expect": "it-security-policy.pdf"},
+  {"query": "What is the salary band for L5 engineers?", "as": "alice",
+   "expect": "salary-bands.pdf"},
+  {"query": "What is the salary band for L5 engineers?", "as": "bob",
+   "expect": null, "forbid": ["salary-bands", "compensation-policy"]},
+  {"query": "When are production deployments not allowed?", "as": "bob",
+   "expect": "deployment-runbook.docx"},
+  {"query": "When are production deployments not allowed?", "as": "alice",
+   "expect": null, "forbid": ["deployment-runbook", "on-call-handbook"]},
+  {"query": "What is the daily meal allowance during business travel?", "as": "alice",
+   "expect": "expense-policy-v2.pdf"},
+  {"query": "How many loading dock doors does the Redhaven depot have?", "as": "bob",
+   "expect": "depot-handbook-redhaven.pdf"}
+]
