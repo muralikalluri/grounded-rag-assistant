@@ -37,6 +37,32 @@ def env(monkeypatch: pytest.MonkeyPatch):  # type: ignore[no-untyped-def]
     get_settings.cache_clear()
 
 
+def test_git_state_ignores_the_runs_own_output_but_not_real_changes(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import subprocess
+
+    def git(*a: str) -> None:
+        subprocess.run(["git", *a], cwd=tmp_path, check=True, capture_output=True)  # noqa: S603, S607
+
+    git("init", "-q")
+    git("config", "user.email", "t@example.invalid")
+    git("config", "user.name", "t")
+    (tmp_path / "code.py").write_text("x = 1\n")
+    git("add", ".")
+    git("commit", "-q", "-m", "init")
+    monkeypatch.setattr(RE, "REPO", tmp_path)
+    assert RE.git_state()["dirty"] is False
+
+    run_dir = tmp_path / "results" / "eval" / "runs" / "r1"
+    run_dir.mkdir(parents=True)
+    (run_dir / "records.jsonl").write_text("{}\n")
+    assert RE.git_state()["dirty"] is False  # the run's own output
+
+    (tmp_path / "code.py").write_text("x = 2\n")
+    assert RE.git_state()["dirty"] is True  # a real change still blocks promotion
+
+
 # ----------------------------------------------------------------- provenance guards
 async def test_extractive_is_refused_without_the_test_mode_flag(env: Any, capsys: Any) -> None:
     env(LLM_PROVIDER="extractive")

@@ -98,7 +98,9 @@ def git_state() -> dict[str, Any]:
             return None
 
     sha = run("rev-parse", "--short", "HEAD")
-    status = run("status", "--porcelain")
+    # A run writes its own output under results/eval/runs before this is read; that must not make
+    # every real run look dirty (it would never be promotable). Code and data changes still count.
+    status = run("status", "--porcelain", "--", ".", ":(exclude)results/eval/runs")
     return {"sha": sha or "no-commits-yet", "dirty": bool(status) or sha is None}
 
 
