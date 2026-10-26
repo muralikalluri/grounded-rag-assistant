@@ -1,4 +1,4 @@
-.PHONY: up down test lint fmt eval ingest-demo retrieve ask retrieval-smoke e2e generate-corpus eval-retrieval tune-threshold crawl docs
+.PHONY: up down test lint fmt eval ingest-demo retrieve ask retrieval-smoke e2e generate-corpus eval-retrieval tune-threshold crawl docs pdf demo-gif
 
 up:
 	docker compose up -d --build
@@ -21,7 +21,7 @@ fmt:
 ingest-demo:
 	docker compose run --rm api python -m app.cli ingest-demo --enqueue
 
-# Full pipeline as a demo user (needs ANTHROPIC_API_KEY or OPENAI_API_KEY in your shell/.env)
+# Full pipeline as a demo user (needs a provider key in your shell/.env: ANTHROPIC_API_KEY, OPENAI_API_KEY, or dev-only GEMINI_API_KEY / GROQ_API_KEY)
 ask:
 	docker compose run --rm api python -m app.cli ask --as $(or $(AS_USER),alice) "$(Q)"
 
@@ -71,3 +71,11 @@ generate-corpus:
 # Refill the results blocks in README.md and sample-deliverable/POC_HANDOVER.md from the newest report
 docs:
 	cd backend && PYTHONPATH=.. uv run python -m eval.readme_results
+
+# Export the sample deliverable to PDF (needs pandoc; uses the Playwright Chromium from frontend/)
+pdf:
+	node scripts/export_pdf.mjs sample-deliverable/POC_HANDOVER.md
+
+# Record docs/img/demo.gif from the live app (make up && make ingest-demo first, LLM key in .env, ffmpeg)
+demo-gif:
+	scripts/record-demo-gif.sh

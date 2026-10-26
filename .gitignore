@@ -32,3 +32,6 @@ results/eval/test-mode/
 !*.tfvars.example
 .terraform/
 crash.log
+
+# demo recording scratch (make demo-gif)
+frontend/demo/.recording/

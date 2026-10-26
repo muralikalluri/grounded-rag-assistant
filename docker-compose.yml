@@ -76,6 +76,12 @@ services:
       LLM_PROVIDER: ${LLM_PROVIDER:-anthropic}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-opus-5-5}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4.1-mini}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.5-flash}
+      GROQ_MODEL: ${GROQ_MODEL:-openai/gpt-oss-120b}
     ports:
       - "127.0.0.1:8000:8000"
     volumes:

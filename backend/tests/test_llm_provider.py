@@ -6,6 +6,7 @@ from typing import Any
 import litellm
 import pytest
 from litellm import exceptions as lx
+from pydantic import SecretStr
 
 from app.config import Settings
 from app.generation.schema import ANSWER_JSON_SCHEMA
@@ -156,6 +157,31 @@ async def test_provider_specific_request_shape(monkeypatch: pytest.MonkeyPatch) 
     await call(p2)
     kw2 = script2.calls[0]
     assert kw2["temperature"] == 0.0 and kw2["response_format"]["json_schema"]["strict"] is True
+
+
+async def test_dev_free_tier_providers_request_shape(monkeypatch: pytest.MonkeyPatch) -> None:
+    for name, model in (("gemini", "gemini-2.5-flash"), ("groq", "openai/gpt-oss-120b")):
+        p, script, _ = make(
+            monkeypatch, [OK], llm_provider=name, **{f"{name}_api_key": SecretStr("k-placeholder")}
+        )
+        r = await call(p)
+        kw = script.calls[0]
+        assert kw["model"] == f"{name}/{model}" and kw["api_key"] == "k-placeholder"
+        assert kw["response_format"] == {"type": "json_object"} and kw["temperature"] == 0.0
+        assert r.provider == name and r.model == model
+
+
+def test_dev_free_tier_providers_are_refused_in_prod() -> None:
+    for name in ("gemini", "groq"):
+        with pytest.raises(ValueError, match="dev-only"):
+            Settings(
+                app_env="prod",
+                llm_provider=name,
+                oidc_issuer="https://issuer.example",
+                oidc_jwks_url="https://issuer.example/jwks",
+                dev_auth_enabled=False,
+                audit_hmac_key=SecretStr("a-real-looking-secret-value"),
+            )
 
 
 async def test_no_prompt_completion_or_key_appears_in_logs(

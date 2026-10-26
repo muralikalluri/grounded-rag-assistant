@@ -1,5 +1,10 @@
 import os
-import subprocess
+
+# litellm calls load_dotenv() on import unless told otherwise, which would leak a developer's
+# repo-root .env (e.g. LLM_PROVIDER=extractive) into os.environ. Must be set before it is imported.
+os.environ.setdefault("LITELLM_MODE", "PRODUCTION")
+
+import subprocess  # noqa: E402
 import sys
 from collections.abc import AsyncIterator, Iterator
 from pathlib import Path
@@ -20,6 +25,12 @@ from tests.support.embedder import FakeEmbedder
 
 BACKEND_DIR = Path(__file__).resolve().parent.parent
 REPO_ROOT = BACKEND_DIR.parent
+
+
+@pytest.fixture(autouse=True)
+def _ignore_dotenv(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Tests must not depend on a developer's local .env (e.g. LLM_PROVIDER=extractive)."""
+    monkeypatch.setitem(Settings.model_config, "env_file", None)
 
 
 @pytest.fixture(scope="session")

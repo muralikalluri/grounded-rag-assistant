@@ -178,11 +178,7 @@ def build_manifest(
             # No generator ran in retrieval-only mode: do not pretend one did.
             "llm_provider": None if mode == "retrieval_only" else settings.llm_provider,
             "llm_model": (
-                None
-                if mode == "retrieval_only"
-                else {"anthropic": settings.anthropic_model, "openai": settings.openai_model}.get(
-                    settings.llm_provider
-                )
+                None if mode == "retrieval_only" else settings.llm_model_for(settings.llm_provider)
             ),
             "temperature": (
                 None
@@ -203,9 +199,7 @@ def build_manifest(
 
 def estimate_cost(settings: Settings, n_questions: int) -> tuple[Decimal | None, str]:
     """Rough pre-run estimate for the generator only (judge calls add more)."""
-    model = (
-        settings.anthropic_model if settings.llm_provider == "anthropic" else settings.openai_model
-    )
+    model = settings.llm_model_for(settings.llm_provider) or settings.llm_provider
     price = PRICES_PER_MTOK.get(model)
     if price is None:
         return None, model

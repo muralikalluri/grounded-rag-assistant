@@ -85,14 +85,21 @@ class Settings(BaseSettings):
     # --- LLM (LiteLLM: OpenAI + Anthropic in the MVP) ----------------------
     # "extractive" is an offline TEST MODE (quotes the best-matching sentence, no LLM); it is
     # refused when app_env=prod and can never be the fallback.
-    llm_provider: Literal["openai", "anthropic", "extractive"] = "anthropic"
+    # "gemini" and "groq" are DEV-ONLY free-tier providers (not part of the MVP quality claims);
+    # free tiers may use prompts for training, so they are refused when app_env=prod.
+    llm_provider: Literal["openai", "anthropic", "gemini", "groq", "extractive"] = "anthropic"
     # Model ids are LiteLLM model names without the provider prefix. Verify against your account.
     anthropic_model: str = "claude-opus-5-5"
     openai_model: str = "gpt-4.1-mini"
+    # Free-tier dev models: check the current ids in Google AI Studio / the Groq console.
+    gemini_model: str = "gemini-2.5-flash"
+    groq_model: str = "openai/gpt-oss-120b"
     llm_fallback_provider: Literal["openai", "anthropic"] | None = None
     llm_fallback_model: str | None = None
     openai_api_key: SecretStr | None = None
     anthropic_api_key: SecretStr | None = None
+    gemini_api_key: SecretStr | None = None
+    groq_api_key: SecretStr | None = None
     llm_timeout_seconds: float = 60.0
     llm_max_retries: int = 2
     llm_deadline_seconds: float = 120.0
@@ -213,6 +220,15 @@ class Settings(BaseSettings):
         "role_tag": r"(<\|?(system|assistant)\|?>|\[/?inst\])",
     }
 
+    def llm_model_for(self, provider: str) -> str | None:
+        """Configured model id for a real provider; None for extractive/unknown."""
+        return {
+            "anthropic": self.anthropic_model,
+            "openai": self.openai_model,
+            "gemini": self.gemini_model,
+            "groq": self.groq_model,
+        }.get(provider)
+
     @model_validator(mode="after")
     def _no_dev_auth_in_prod(self) -> "Settings":
         if self.app_env == "prod" and self.dev_auth_enabled:
@@ -227,6 +243,8 @@ class Settings(BaseSettings):
             raise ValueError("app_env=prod requires oidc_issuer (real authentication)")
         if self.app_env == "prod" and self.llm_provider == "extractive":
             raise ValueError("llm_provider=extractive is a test mode and is refused in prod")
+        if self.app_env == "prod" and self.llm_provider in ("gemini", "groq"):
+            raise ValueError(f"llm_provider={self.llm_provider} is dev-only and refused in prod")
         if self.app_env == "prod" and "placeholder" in self.audit_hmac_key.get_secret_value():
             raise ValueError("audit_hmac_key must be set to a real secret when app_env=prod")
         return self

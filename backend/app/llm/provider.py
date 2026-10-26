@@ -33,6 +33,7 @@ litellm.suppress_debug_info = True
 litellm.drop_params = False
 
 _RETRYABLE_STATUS = {408, 409, 429}
+_JSON_OBJECT_PROVIDERS = {"gemini", "groq"}
 
 
 class LLMProvider(Protocol):
@@ -41,7 +42,7 @@ class LLMProvider(Protocol):
 
 @dataclass(frozen=True)
 class Target:
-    provider: str  # "openai" | "anthropic"
+    provider: str  # "openai" | "anthropic" | "gemini" | "groq"
     model: str
 
 
@@ -79,12 +80,7 @@ class LiteLLMProvider:
         self._sleep = sleep
         if settings.llm_provider == "extractive":
             raise ValueError("use ExtractiveProvider (app.llm.factory) for llm_provider=extractive")
-        primary = Target(
-            settings.llm_provider,
-            settings.anthropic_model
-            if settings.llm_provider == "anthropic"
-            else settings.openai_model,
-        )
+        primary = Target(settings.llm_provider, settings.llm_model_for(settings.llm_provider) or "")
         self._targets = [primary]
         if settings.llm_fallback_provider and settings.llm_fallback_model:
             self._targets.append(
@@ -114,6 +110,13 @@ class LiteLLMProvider:
             }
             if s.openai_api_key:
                 kw["api_key"] = s.openai_api_key.get_secret_value()
+        elif target.provider in _JSON_OBJECT_PROVIDERS:
+            # Dev-only free tiers: strict json_schema support varies by model, so ask for a JSON
+            # object (the prompt carries the schema) and validate with Pydantic like Anthropic.
+            kw["response_format"] = {"type": "json_object"}
+            key = s.gemini_api_key if target.provider == "gemini" else s.groq_api_key
+            if key:
+                kw["api_key"] = key.get_secret_value()
         elif s.anthropic_api_key:
             # Anthropic: JSON is requested in the prompt and validated by Pydantic. LiteLLM's
             # json_schema mode uses forced tool_choice, which current Claude models reject.

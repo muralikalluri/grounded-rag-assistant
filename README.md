@@ -8,7 +8,9 @@ A document Q&A assistant that **answers only from your documents, cites the exac
 instead of guessing, and shows each user only what their group may read.** All companies, people and
 documents in the demo are fictional.
 
-> **Demo GIF and Loom walkthrough: not recorded yet** (script in [docs/loom-script.md](docs/loom-script.md)). Run the quickstart below to see it live (ask as Alice, then as Bob).
+![Alice (HR) gets a cited answer and opens the highlighted source page; Bob (Engineering) asks the same question and gets "not found"](docs/img/demo.gif)
+
+*Recorded live from the running stack with a real LLM (`make demo-gif`): Alice (HR) gets a cited answer and opens the source page; Bob (Engineering) asks the same question and gets "not found", because HR documents are never retrieved for him; a question the documents do not cover also gets "not found".*
 
 ## Results
 
@@ -68,7 +70,7 @@ make ingest-demo         # index the 100 demo documents
 ```
 
 Open http://localhost:3000. Demo users (throwaway, local Keycloak only): `alice` / `alice-demo-only` (HR),
-`bob` / `bob-demo-only` (Engineering). Answers need `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` in `.env`. Without a key, ingestion and retrieval
+`bob` / `bob-demo-only` (Engineering). Answers need `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` in `.env` (for free dev testing without paid credit, `LLM_PROVIDER=gemini` or `groq` with a free-tier key also works; dev-only, refused when `APP_ENV=prod`, not used for any quality claim). Without a key, ingestion and retrieval
 still work, and `make e2e` exercises the whole UI with an offline test-mode provider.
 
 `make test` · `make lint` · `make eval EVAL_ARGS=--yes` (live model, costs money) · `make eval-retrieval` (no key).
@@ -94,11 +96,11 @@ The threat model is in [docs/security.md](docs/security.md).
 
 ## Sample deliverable
 
-[sample-deliverable/POC_HANDOVER.md](sample-deliverable/POC_HANDOVER.md) is what a Starter engagement hands over.
+[sample-deliverable/POC_HANDOVER.md](sample-deliverable/POC_HANDOVER.md) ([PDF](sample-deliverable/POC_HANDOVER.pdf)) is what a Starter engagement hands over. Regenerate the PDF with `make pdf`.
 
 ## Status and honest gaps
 
-- Generation metrics need a live LLM key and have not been run; see the Results banner.
+- Generation metrics depend on a live LLM key; the Results block above states whether the current report includes them.
 - GitHub CI and the Azure `terraform apply` have not been run yet.
 - No HTTP API for managing content yet: SPEC §6's `/api/collections`, `/api/collections/{id}/sources`,
   `/api/ingestion/jobs`, `/api/feedback` and `/api/admin/metrics` are not built; only `/api/chat`, the
@@ -106,8 +108,7 @@ The threat model is in [docs/security.md](docs/security.md).
 - No thumbs up/down, per-user rate limiting or audit-log UI.
 - Not in v0.1.0 by design (SPEC §14 "Later"): Google Drive / SharePoint / database connectors, AWS Terraform,
   OpenTelemetry, dashboards, Entra ID sign-in, CI smoke eval, image publishing.
-- The Loom walkthrough and demo GIF are not recorded; the Hire-me link and CI badge owner are placeholders.
 
 ## Hire me
 
-Want this on your own documents? [Hire me on Upwork](https://www.upwork.com/freelancers/YOUR-PROFILE).
+Want this on your own documents? [Hire me on Upwork](https://www.upwork.com/freelancers/~01c80d5fd70c92b97d).
