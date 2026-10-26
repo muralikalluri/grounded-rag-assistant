@@ -26,13 +26,11 @@ A question-answering assistant over a private document set that:
 Everything between the markers is generated from the newest report in `eval/reports/` by `make docs`.
 
 <!-- results:start -->
-_Generated from [`eval/reports/2026-09-29_no-commits-yet_retrieval-only_2.json`](eval/reports/2026-09-29_no-commits-yet_retrieval-only_2.json) by `make docs`; do not edit by hand._
+_Generated from [`eval/reports/2026-10-26_7c1117f.json`](eval/reports/2026-10-26_7c1117f.json) by `make docs`; do not edit by hand._
 
-Run `20260929T040133Z-3c1d04`, mode `retrieval_only`, 30 questions (20 answerable / 6 unanswerable / 4 acl-denied), git `no-commits-yet` (dirty working tree), embeddings `BAAI/bge-small-en-v1.5`, reranker `BAAI/bge-reranker-base`.
+Run `20261026T074347Z-370aa5`, mode `llm`, 30 questions (20 answerable / 6 unanswerable / 4 acl-denied), git `7c1117f`, embeddings `BAAI/bge-small-en-v1.5`, reranker `BAAI/bge-reranker-base`.
 
 Environment: Python 3.12.14, torch 2.14.0, device `mps`.
-
-> **Generation metrics have not been run.** No LLM key was available when this report was produced, so answer correctness, citation precision and abstention accuracy are not measured yet. Run `make eval EVAL_ARGS=--yes` with a key to fill them in.
 
 | Metric | Result |
 |---|---|
@@ -40,13 +38,18 @@ Environment: Python 3.12.14, torch 2.14.0, device `mps`.
 | Retrieval recall@6, page level (PDF) | 11/12 (0.92) [95% CI 0.65–0.99] |
 | Chunks returned that the asking user may not read | **0** of 180 |
 | Forbidden documents retrieved (ACL-denied questions) | **0** |
+| Answer correctness (macro fact fraction) | 0.95 over 20 answers |
+| False abstention | 0/20 (0.00) [95% CI 0.00–0.16] |
+| Abstention accuracy, unanswerable + ACL-denied | 10/10 (1.00) [95% CI 0.72–1.00] |
+| Citation precision | 20/20 (1.00) [95% CI 0.84–1.00] |
+| Latency p50 / p95 | 1,316 ms / 2,392 ms |
 
 | SPEC §9.4 target | Goal | Result | Status |
 |---|---|---|---|
 | Retrieval recall@6 (file level) | >= 0.90 | 19/20 (0.95) [95% CI 0.76–0.99] | not demonstrable at this n |
-| Abstention accuracy (unanswerable + ACL-denied) | >= 0.95 | n/a | not run |
-| False abstention rate | <= 0.10 | n/a | not run |
-| Citation precision | >= 0.90 | n/a | not run |
+| Abstention accuracy (unanswerable + ACL-denied) | >= 0.95 | 10/10 (1.00) [95% CI 0.72–1.00] | not demonstrable at this n |
+| False abstention rate | <= 0.10 | 0/20 (0.00) [95% CI 0.00–0.16] | not demonstrable at this n |
+| Citation precision | >= 0.90 | 20/20 (1.00) [95% CI 0.84–1.00] | not demonstrable at this n |
 
 Status uses the 95% Wilson interval, not the point estimate: at 30 questions most targets cannot be demonstrated either way.
 <!-- results:end -->
