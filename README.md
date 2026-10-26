@@ -106,7 +106,7 @@ The threat model is in [docs/security.md](docs/security.md).
 ## Status and honest gaps
 
 - Generation metrics depend on a live LLM key; the Results block above states whether the current report includes them.
-- GitHub CI and the Azure `terraform apply` have not been run yet.
+- The Azure `terraform apply` has not been run yet (GitHub CI runs on every push).
 - No HTTP API for managing content yet: SPEC §6's `/api/collections`, `/api/collections/{id}/sources`,
   `/api/ingestion/jobs`, `/api/feedback` and `/api/admin/metrics` are not built; only `/api/chat`, the
   citation preview endpoints and health checks exist. Ingestion is via the CLI.
