@@ -11,7 +11,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const require = createRequire(join(root, "frontend", "package.json"));
-const { chromium } = require("playwright");
+const { chromium } = require("@playwright/test");
 
 const inputs = process.argv.slice(2);
 if (inputs.length === 0) {
